@@ -30,33 +30,48 @@ su bebida cuando el sistema le avisa que ya está lista.
 
 ## 2. Problema y usuarios
 
-**El problema:** en una cafetería tradicional, el cliente pierde tiempo
-haciendo fila para ordenar y pagar antes de que su pedido siquiera empiece
-a prepararse. En horas pico esa fila se vuelve el cuello de botella real
-del negocio, no la preparación de las bebidas.
+**El problema:** una cafetería tradicional depende de que el cajero haga
+bien dos cosas a la vez: cobrar rápido para no generar fila, y registrar
+en el sistema todo lo que sale de la barra. Cuando el negocio confía esa
+segunda parte a la honestidad y atención del cajero, hay una ventana
+abierta para que se entregue producto sin cobrarlo o sin registrarlo —ya
+sea un descuento no autorizado, un "regalo" a un conocido, o una venta que
+se cobra en efectivo y no se captura—. El dueño se entera de esa merma
+hasta que hace inventario, si es que lo hace, y para entonces ya no puede
+saber si fue un error, un desperdicio o un robo.
 
-**Cómo se resuelve hoy sin el sistema:** con un cajero que toma el pedido,
-cobra y lo pasa a viva voz o por escrito a la barra. El tiempo del cliente
-en fila depende de qué tan rápido cobra el cajero, no de qué tan rápido
-prepara el barista.
+**Cómo se resuelve hoy sin el sistema:** el dueño paga un cajero, confía en
+que registre cada venta, y hace cortes de caja e inventarios periódicos
+para tratar de detectar faltantes. Cuando encuentra una diferencia, ya
+pasó demasiado tiempo para saber qué la causó.
 
 **Usuarios del sistema:**
 
 | Tipo de usuario | Qué necesita del sistema | Qué le preocupa |
 |---|---|---|
-| Cliente | Ordenar y pagar rápido, sin fila, y saber cuándo su pedido está listo | Que le cobren mal, que su pedido se pierda o que llegue tarde |
+| Cliente | Ordenar y pagar rápido, sin fila, y saber cuándo su pedido está listo | Que le cobren mal, que su pedido se pierda o llegue tarde |
 | Barista | Ver los pedidos en el orden correcto para prepararlos sin perder tiempo ni confundirse | Que le lleguen pedidos con modificaciones que no puede cumplir a tiempo, o que se le acumulen sin orden claro |
-| Dueño/administrador | Controlar el catálogo, los precios y ver qué se vendió | Que el sistema falle en hora pico y se pierdan ventas o pedidos |
+| Dueño/administrador (quien contrata el servicio) | Que ningún producto salga de la barra sin estar pagado y registrado, y no tener que pagar un cajero de tiempo completo | Perder dinero por ventas no registradas o descuentos que nadie autorizó, sin manera de rastrear quién lo hizo |
 
-**Un conflicto entre usuarios:** un cliente pide su café con anticipación
-para las 8:00 a.m., pero llega a las 8:20. Su bebida se preparó a tiempo y
-lleva 20 minutos fría en la barra, mientras hay una fila de clientes que sí
-están presentes esperando que se les atienda. El barista tiene que decidir
-si rehace la bebida (pierde tiempo e insumo) o la entrega fría (el cliente
-se queja). Esto obliga a una decisión de diseño real: ¿el sistema dispara
-la preparación del pedido anticipado a la hora exacta que el cliente
-eligió, o espera a que el cliente confirme que ya llegó o está por llegar?
+**Un conflicto entre usuarios:** el barista prepara las bebidas y tiene
+acceso físico directo al producto: café, leche, vasos. El sistema, para
+cumplir lo que el dueño necesita, tiene que impedir que el barista prepare
+o entregue algo que no tenga un pedido pagado asociado en el sistema —ni
+siquiera un descuento "de cortesía" para un cliente frecuente o un amigo.
+Eso choca con la manera en que un barista humano normalmente opera: usar
+su criterio para regalar una muestra, cambiar un precio a mano o ayudar a
+un cliente sin efectivo suficiente. Ahí está la decisión de diseño: el
+sistema no puede depender de la buena voluntad del barista para que el
+control funcione, tiene que hacer que sea imposible (o al menos quede
+registrado) saltarse el sistema, sin volver el trabajo del barista más
+lento ni más rígido de lo necesario.
 
+Un segundo conflicto, más operativo: un cliente pide con anticipación para
+las 8:00 a.m. pero llega a las 8:20; su bebida se preparó a tiempo y lleva
+20 minutos fría en la barra, mientras hay fila de clientes presentes. El
+barista decide entre rehacerla o entregarla fría. Esto exige definir si el
+sistema dispara la preparación a la hora exacta que eligió el cliente, o
+espera a que confirme que ya llegó.
 ## 3. Alcance
 
 *Instrucción: lo que escribes en "fuera del alcance" es lo que después evita que el proyecto crezca sin control. Sé específico: "reportes" no dice nada, "reportes de ventas mensuales exportables a PDF" sí.*
