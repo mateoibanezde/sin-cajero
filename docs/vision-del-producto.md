@@ -9,8 +9,8 @@
 ---
 
 **Autor:*Mateo Ibañez de la Cueva*
-**Fecha de la última versión:**
-**Repositorio:**
+**Fecha de la última versión:*18/08/2026*
+**Repositorio:*main*
 
 ---
 
