@@ -1,0 +1,26 @@
+# sin-cajero
+
+Sistema de pedidos digitales para cafetería self-service. El cliente ordena
+desde un kiosco en el local o desde su propio celular — sin cajero ni
+mesero de por medio — y recoge directamente en barra cuando su pedido está
+listo.
+
+## Qué hace
+
+- Toma de pedidos desde kiosco en tienda o desde el celular del cliente
+  (en local o con anticipación).
+- Cobro integrado al pedido (tarjeta o efectivo según el punto).
+- Envío de la orden a cocina/barra para preparación.
+- Pantalla de estado en el local que avisa cuándo el pedido está listo
+  para recoger.
+
+## Por qué existe
+
+Elimina la fila de caja y el tiempo del cajero tomando pedidos, sin perder
+el trato humano en la preparación: el barista sigue preparando cada bebida,
+el sistema solo se encarga de capturar y cobrar el pedido.
+
+## Estado
+
+Proyecto en desarrollo — primer entregable: documento de Visión del
+producto (curso Ingeniería de Software I, Universidad Anáhuac Querétaro).
