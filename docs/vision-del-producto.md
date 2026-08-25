@@ -97,9 +97,7 @@ aportar al problema central del entregable.
 
 Control de inventario de insumos también queda fuera: el control que
 necesita el dueño no depende de saber cuánta leche queda, sino de que
-ningún producto salga de la barra sin un pedido pagado asociado. Ese
-control se logra con la regla de negocio del apartado 4, sin necesidad de
-llevar inventario de materia prima.
+ningún producto salga de la barra sin un pedido pagado asociado.
 
 ## 4. Tipo de sistema y restricciones
 
