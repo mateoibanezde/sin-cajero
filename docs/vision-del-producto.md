@@ -74,54 +74,68 @@ sistema dispara la preparación a la hora exacta que eligió el cliente, o
 espera a que confirme que ya llegó.
 ## 3. Alcance
 
-*Instrucción: lo que escribes en "fuera del alcance" es lo que después evita que el proyecto crezca sin control. Sé específico: "reportes" no dice nada, "reportes de ventas mensuales exportables a PDF" sí.*
-
-### Dentro del alcance
-
--
--
--
--
+- Toma de pedidos desde kiosco físico en el local.
+- Toma de pedidos desde el celular del cliente, en el momento o con anticipación, para recogerse en barra.
+- Pantalla para barista/cocina que muestra únicamente los pedidos ya pagados, en el orden en que deben prepararse.
+- Pantalla de estado visible en el local que avisa al cliente cuándo su pedido está listo para recoger.
+- Catálogo de productos y precios administrable por el dueño.
+- Corte de caja diario que concilia el total cobrado por el sistema contra el número de pedidos entregados.
 
 ### Explícitamente fuera del alcance
 
--
--
--
+- Pedidos a domicilio (con repartidor, dirección y costo de envío).
+- Control de inventario de insumos y materia prima (café, leche, vasos) con niveles de stock.
+- Facturación fiscal electrónica (CFDI) automatizada.
 
 **Por qué queda fuera:**
 
-*Instrucción: para al menos una de las exclusiones, explica la razón. Puede ser tiempo, complejidad, o que no aporta al problema central.*
+Pedidos a domicilio queda fuera porque introduce un problema distinto al
+que resuelve este sistema: logística de última milla (repartidor, radio de
+cobertura, tiempo estimado de entrega), no la eliminación de la fila y el
+control de lo que sale de la barra. Meterlo triplicaría el sistema sin
+aportar al problema central del entregable.
 
----
+Control de inventario de insumos también queda fuera: el control que
+necesita el dueño no depende de saber cuánta leche queda, sino de que
+ningún producto salga de la barra sin un pedido pagado asociado. Ese
+control se logra con la regla de negocio del apartado 4, sin necesidad de
+llevar inventario de materia prima.
 
 ## 4. Tipo de sistema y restricciones
 
 *Instrucción: identifica de qué tipo es tu sistema y qué te obliga a garantizar ese tipo. Un sistema de información y un sistema crítico no se diseñan igual.*
 
-**Tipo de sistema:**
+**Tipo de sistema:** Web y SaaS
 
-*(De información · Embebido · Crítico · Web y SaaS · De datos y análisis)*
+**Por qué es de ese tipo:** el sistema tiene varias superficies que
+comparten información en tiempo real —kiosco, celular del cliente,
+pantalla de barra y pantalla de estado— y no depende de un solo
+dispositivo ni de hardware especializado. Además, aunque hoy es para un
+solo local, está pensado desde el inicio para operar como servicio hacia
+otras cafeterías más adelante, con cada una administrando su propio
+catálogo.
 
-**Por qué es de ese tipo:**
 
 **Atributos de calidad que impone:**
-
 | Atributo | Por qué importa en mi caso | Qué pasa si no se cumple |
 |---|---|---|
-| | | |
-| | | |
-| | | |
+| Disponibilidad en horas pico | No existe cajero de respaldo: si el sistema cae, no hay forma alternativa de vender | El negocio se detiene por completo mientras dure la falla |
+| Integridad transaccional (pedido y pago como una sola operación) | Un pedido debe registrarse y cobrarse de forma atómica; si el proceso falla a medias, se puede preparar algo sin cobrar o cobrar algo que nunca llega a barra | Reaparece el mismo problema que el sistema busca eliminar: producto que sale sin quedar registrado |
+| Trazabilidad de cada acción (pedido, pago, entrega, cancelación) | El dueño necesita poder rastrear quién hizo qué y cuándo para detectar y probar cualquier diferencia | Sin registro, una merma o fuga no se puede atribuir a nadie ni corregir |
 
 **Reglas de negocio que ya identifiqué:**
 
-*Instrucción: reglas que no son obvias desde fuera y que alguien que conoce el dominio tendría que explicarte. Si no encuentras ninguna, tu caso puede ser demasiado simple.*
-
-1.
-2.
-3.
-
----
+1. Ningún producto puede prepararse en barra sin que exista antes un
+   pedido pagado y registrado en el sistema; no existen cortesías,
+   descuentos ni ajustes de precio capturados fuera de él.
+2. Un pedido anticipado no dispara su preparación automáticamente a la
+   hora que el cliente eligió al ordenar; requiere una confirmación de
+   que el cliente ya llegó o está por llegar, para no desperdiciar
+   producto si llega tarde.
+3. Un pedido ya pagado no puede cancelarse desde la estación de barista;
+   la cancelación (y su eventual reembolso) requiere autorización del
+   dueño/administrador, porque cancelar sin reembolsar es otra forma de
+   que el producto salga sin quedar registrado como venta.
 
 ## 5. Ciclo de vida elegido
 
