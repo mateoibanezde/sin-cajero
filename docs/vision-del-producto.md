@@ -137,25 +137,42 @@ catálogo.
 
 ## 5. Ciclo de vida elegido
 
-*Instrucción: este apartado se trabaja en la semana 3, después de ver los modelos de desarrollo. La justificación pesa más que la elección: no hay un modelo correcto, hay uno defendible para tu caso.*
+**Modelo elegido:** Iterativo e incremental (entregas cortas, tipo Scrum
+simplificado para equipo de una persona).
 
-**Modelo elegido:**
-
-**Por qué le conviene a este proyecto:**
-
-*Instrucción: argumenta con las características reales de tu caso. Estabilidad de los requisitos, disponibilidad del cliente, nivel de riesgo, tamaño del equipo, frecuencia de entregas esperada.*
+**Por qué le conviene a este proyecto:** los requisitos no están cerrados
+desde el inicio — ya se movieron durante este mismo trabajo: se descartó
+domicilio del alcance y se agregó el control anti-robo apenas en la
+segunda vuelta del apartado 2. Un modelo que exige fijar todo el alcance
+antes de construir no encaja con eso. El equipo es de una sola persona, y
+esa misma persona es también el cliente (dueño del negocio), lo que
+significa disponibilidad total para revisar y ajustar cada incremento —no
+hay que esperar validación externa. El riesgo del sistema es moderado, no
+crítico: una falla no pone en peligro a nadie, pero sí cuesta dinero si
+falla el control de pagos, así que conviene poder probar esa parte
+temprano en un incremento aislado en lugar de integrarla hasta el final.
+Y el curso mismo exige entregas frecuentes (semana 4, y luego más
+avances), lo cual calza directo con incrementos cortos y demostrables.
 
 ### Alternativas descartadas
 
-**Alternativa 1:**
+**Alternativa 1:** Cascada (Waterfall)
 
-*Por qué la descarté:*
+*Por qué la descarté:* exige congelar el alcance completo antes de
+empezar a construir. Ese supuesto ya falló en la práctica durante este
+mismo documento: el alcance cambió más de una vez a partir de decisiones
+que solo se volvieron claras al conversar el caso a fondo. Con cascada,
+esos cambios habrían significado rehacer el análisis completo en lugar de
+ajustar el siguiente incremento.
 
-**Alternativa 2:**
+**Alternativa 2:** Espiral
 
-*Por qué la descarté:*
-
----
+*Por qué la descarté:* está pensado para proyectos con alto riesgo e
+incertidumbre que justifican un análisis de riesgos formal en cada
+vuelta, normalmente con más de una persona evaluándolo. Aquí el riesgo es
+real pero acotado (la integridad del pago y el registro de pedidos), y
+un análisis de riesgo formal por ciclo es más proceso del que un equipo
+de una persona puede sostener sin que se vuelva el trabajo en sí mismo.
 
 ## Antes de entregar
 
