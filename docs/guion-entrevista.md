@@ -2,7 +2,7 @@
 
 **Sistema:** sin-cajero
 **Entrevistador:** Mateo Ibañez de la Cueva
-**Entrevistado (dupla, en rol de dueño de cafetería):** [nombre de tu dupla]
+**Entrevistado (dupla, en rol de dueño de cafetería):** Pablo andrade
 **Fecha de la entrevista:** 29/09/2026
 
 ---
