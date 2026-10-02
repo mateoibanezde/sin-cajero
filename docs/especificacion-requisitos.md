@@ -5,7 +5,7 @@
 **Versión:** 1.1
 **Fecha de la última actualización:** 01/10/2026
 
-**Revisión de la dupla:** revisado por [nombre de tu dupla] el 29/09/2026, en la misma sesión en que se aplicó el guion de entrevista (ver `docs/guion-entrevista.md`). Observaciones de la dupla: los requisitos no funcionales RNF-REN-001 y RNF-USA-001 tenían métricas optimistas frente a la operación real descrita en la entrevista; se ajustaron (ver apartado 7, Registro de cambios).
+**Revisión de la dupla:** revisado por Pablo andrade el 29/09/2026, en la misma sesión en que se aplicó el guion de entrevista (ver `docs/guion-entrevista.md`). Observaciones de la dupla: los requisitos no funcionales RNF-REN-001 y RNF-USA-001 tenían métricas optimistas frente a la operación real descrita en la entrevista; se ajustaron (ver apartado 7, Registro de cambios).
 
 ---
 
