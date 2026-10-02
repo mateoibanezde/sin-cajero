@@ -1,16 +1,10 @@
 # Visión del producto
 
-> **Plantilla del curso · Ingeniería de Software I · SIS3407**
-> Este documento es el primer entregable del semestre y la base de todo lo que viene después.
-> Se entrega completo en la **semana 4** y se presenta ante el grupo.
->
-> **Cómo usarla:** copia este archivo a tu repositorio como `docs/vision-del-producto.md`, borra las instrucciones en gris de cada apartado y escribe tu contenido en su lugar. Conserva los títulos.
-
 ---
 
-**Autor:*Mateo Ibañez de la Cueva*
-**Fecha de la última versión:*18/08/2026*
-**Repositorio:*main*
+**Autor:** Mateo Ibañez de la Cueva
+**Fecha de la última versión:** 18/08/2026
+**Repositorio:** https://github.com/mateoibanezde/sin-cajero
 
 ---
 
@@ -72,7 +66,12 @@ las 8:00 a.m. pero llega a las 8:20; su bebida se preparó a tiempo y lleva
 barista decide entre rehacerla o entregarla fría. Esto exige definir si el
 sistema dispara la preparación a la hora exacta que eligió el cliente, o
 espera a que confirme que ya llegó.
+
+---
+
 ## 3. Alcance
+
+### Dentro del alcance
 
 - Toma de pedidos desde kiosco físico en el local.
 - Toma de pedidos desde el celular del cliente, en el momento o con anticipación, para recogerse en barra.
@@ -99,9 +98,9 @@ Control de inventario de insumos también queda fuera: el control que
 necesita el dueño no depende de saber cuánta leche queda, sino de que
 ningún producto salga de la barra sin un pedido pagado asociado.
 
-## 4. Tipo de sistema y restricciones
+---
 
-*Instrucción: identifica de qué tipo es tu sistema y qué te obliga a garantizar ese tipo. Un sistema de información y un sistema crítico no se diseñan igual.*
+## 4. Tipo de sistema y restricciones
 
 **Tipo de sistema:** Web y SaaS
 
@@ -113,8 +112,8 @@ solo local, está pensado desde el inicio para operar como servicio hacia
 otras cafeterías más adelante, con cada una administrando su propio
 catálogo.
 
-
 **Atributos de calidad que impone:**
+
 | Atributo | Por qué importa en mi caso | Qué pasa si no se cumple |
 |---|---|---|
 | Disponibilidad en horas pico | No existe cajero de respaldo: si el sistema cae, no hay forma alternativa de vender | El negocio se detiene por completo mientras dure la falla |
@@ -123,17 +122,11 @@ catálogo.
 
 **Reglas de negocio que ya identifiqué:**
 
-1. Ningún producto puede prepararse en barra sin que exista antes un
-   pedido pagado y registrado en el sistema; no existen cortesías,
-   descuentos ni ajustes de precio capturados fuera de él.
-2. Un pedido anticipado no dispara su preparación automáticamente a la
-   hora que el cliente eligió al ordenar; requiere una confirmación de
-   que el cliente ya llegó o está por llegar, para no desperdiciar
-   producto si llega tarde.
-3. Un pedido ya pagado no puede cancelarse desde la estación de barista;
-   la cancelación (y su eventual reembolso) requiere autorización del
-   dueño/administrador, porque cancelar sin reembolsar es otra forma de
-   que el producto salga sin quedar registrado como venta.
+1. Ningún producto puede prepararse en barra sin que exista antes un pedido pagado y registrado en el sistema; no existen cortesías, descuentos ni ajustes de precio capturados fuera de él.
+2. Un pedido anticipado no dispara su preparación automáticamente a la hora que el cliente eligió al ordenar; requiere una confirmación de que el cliente ya llegó o está por llegar, para no desperdiciar producto si llega tarde.
+3. Un pedido ya pagado no puede cancelarse desde la estación de barista; la cancelación (y su eventual reembolso) requiere autorización del dueño/administrador, porque cancelar sin reembolsar es otra forma de que el producto salga sin quedar registrado como venta.
+
+---
 
 ## 5. Ciclo de vida elegido
 
@@ -174,17 +167,19 @@ real pero acotado (la integridad del pago y el registro de pedidos), y
 un análisis de riesgo formal por ciclo es más proceso del que un equipo
 de una persona puede sostener sin que se vuelva el trabajo en sí mismo.
 
+---
+
 ## Antes de entregar
 
 Reviso que el documento cumpla lo siguiente:
 
-- [ ] La descripción del apartado 1 se entiende sin ser del área
-- [ ] Hay al menos dos tipos de usuario con necesidades distintas
-- [ ] Identifiqué un conflicto real entre usuarios
-- [ ] El alcance dice qué queda fuera, no solo qué queda dentro
-- [ ] Las exclusiones son específicas, no genéricas
-- [ ] Identifiqué el tipo de sistema y al menos dos atributos de calidad
-- [ ] Anoté al menos tres reglas de negocio no obvias
-- [ ] Justifiqué el ciclo de vida contra dos alternativas descartadas
-- [ ] El documento está en mi repositorio y se puede leer desde el navegador
-- [ ] Borré todas las instrucciones en cursiva de la plantilla
+- [x] La descripción del apartado 1 se entiende sin ser del área
+- [x] Hay al menos dos tipos de usuario con necesidades distintas
+- [x] Identifiqué un conflicto real entre usuarios
+- [x] El alcance dice qué queda fuera, no solo qué queda dentro
+- [x] Las exclusiones son específicas, no genéricas
+- [x] Identifiqué el tipo de sistema y al menos dos atributos de calidad
+- [x] Anoté al menos tres reglas de negocio no obvias
+- [x] Justifiqué el ciclo de vida contra dos alternativas descartadas
+- [x] El documento está en mi repositorio y se puede leer desde el navegador
+- [x] Borré todas las instrucciones en cursiva de la plantilla
