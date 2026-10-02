@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" modified="2026-10-01T00:00:00.000Z" agent="sin-cajero" version="24.0.0" type="device">
+  <diagram name="Casos de uso" id="casos-de-uso-sin-cajero">
+    <mxGraphModel dx="1400" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Frontera del sistema -->
+        <mxCell id="boundary" value="sin-cajero" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=16;fontStyle=1;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="300" y="40" width="820" height="620" as="geometry" />
+        </mxCell>
+
+        <!-- Actores -->
+        <mxCell id="actorCliente" value="Cliente" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FDE9D9;strokeColor=#D79B00;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="actorBarista" value="Barista" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#DAE8FC;strokeColor=#6C8EBF;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="560" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="actorDueno" value="Dueño / Administrador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#D5E8D4;strokeColor=#82B366;" vertex="1" parent="1">
+          <mxGeometry x="60" y="400" width="40" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Casos de uso -->
+        <mxCell id="uc1" value="Ordenar producto desde kiosco" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="80" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uc2" value="Ordenar producto desde celular" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uc3" value="Confirmar llegada de pedido anticipado" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="240" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uc4" value="Preparar pedido en barra" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="860" y="240" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uc5" value="Administrar catálogo de productos" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="400" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uc6" value="Autorizar cancelación de pedido" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="500" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uc7" value="Generar corte de caja diario" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="600" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Asociaciones actor-caso de uso -->
+        <mxCell id="e1" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="actorCliente" target="uc1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="actorCliente" target="uc2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="actorCliente" target="uc3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="actorBarista" target="uc4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="actorDueno" target="uc5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="actorDueno" target="uc6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" style="edgeStyle=none;html=1;endArrow=none;" edge="1" parent="1" source="actorDueno" target="uc7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Relaciones include/extend -->
+        <mxCell id="e8" value="&lt;&lt;extend&gt;&gt;" style="edgeStyle=none;html=1;dashed=1;endArrow=open;" edge="1" parent="1" source="uc2" target="uc3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="&lt;&lt;include&gt;&gt;" style="edgeStyle=none;html=1;dashed=1;endArrow=open;" edge="1" parent="1" source="uc1" target="uc4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="&lt;&lt;include&gt;&gt;" style="edgeStyle=none;html=1;dashed=1;endArrow=open;" edge="1" parent="1" source="uc3" target="uc4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
