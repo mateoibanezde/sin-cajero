@@ -1,17 +1,11 @@
 # Especificación de requisitos
 
-> **Plantilla del curso · Ingeniería de Software I · SIS3407**
-> Copia este archivo a tu repositorio como `docs/especificacion-requisitos.md`,
-> borra las instrucciones en cursiva y los ejemplos, y escribe tu contenido.
-> Las reglas de nomenclatura y redacción están en la Guía de redacción de
-> requisitos. Se entrega en la **semana 8** junto con el prototipo.
+**Sistema:** sin-cajero
+**Autor:** Mateo Ibañez de la Cueva
+**Versión:** 1.1
+**Fecha de la última actualización:** 01/10/2026
 
----
-
-**Sistema:**
-**Autor:**
-**Versión:**
-**Fecha de la última actualización:**
+**Revisión de la dupla:** revisado por [nombre de tu dupla] el 29/09/2026, en la misma sesión en que se aplicó el guion de entrevista (ver `docs/guion-entrevista.md`). Observaciones de la dupla: los requisitos no funcionales RNF-REN-001 y RNF-USA-001 tenían métricas optimistas frente a la operación real descrita en la entrevista; se ajustaron (ver apartado 7, Registro de cambios).
 
 ---
 
@@ -45,17 +39,10 @@ automatizada — igual que en la Visión del producto.
 
 **Conflictos identificados entre usuarios:**
 
-1. El barista tiene acceso físico directo al producto (café, leche,
-   vasos) y normalmente resuelve situaciones con criterio propio —una
-   cortesía, un descuento verbal—. El sistema, para cumplir lo que
-   necesita el dueño, tiene que impedir eso: nada se prepara sin un
-   pedido pagado asociado. El requisito no puede depender de la buena
-   voluntad del barista; tiene que hacerlo estructuralmente imposible
-   de saltarse.
-2. Un cliente que pide con anticipación y llega tarde deja una bebida
-   fría ocupando la barra mientras hay clientes presentes esperando.
-   El sistema resuelve esto disparando la preparación cuando el
-   cliente confirma su llegada, no a la hora que originalmente eligió.
+1. El barista tiene acceso físico directo al producto (café, leche, vasos) y normalmente resuelve situaciones con criterio propio —una cortesía, un descuento verbal—. El sistema, para cumplir lo que necesita el dueño, tiene que impedir eso: nada se prepara sin un pedido pagado asociado. El requisito no puede depender de la buena voluntad del barista; tiene que hacerlo estructuralmente imposible de saltarse.
+2. Un cliente que pide con anticipación y llega tarde deja una bebida fría ocupando la barra mientras hay clientes presentes esperando. El sistema resuelve esto disparando la preparación cuando el cliente confirma su llegada, no a la hora que originalmente eligió.
+
+**Lo que confirmó la entrevista con la dupla** (ver `docs/guion-entrevista.md`): el problema central —dinero perdido por ventas no registradas y falta de una regla escrita sobre cortesías— es real y ya le ha costado dinero al dueño. También reveló un caso no contemplado en el alcance (qué hacer cuando falla el método de pago físico), que queda fuera de esta unidad pero anotado como pregunta abierta para la fase de diseño.
 
 ---
 
@@ -200,8 +187,8 @@ automatizada — igual que en la Visión del producto.
 | RNF-CON-001 | Confiabilidad | Disponibilidad en horario de operación | Imprescindible | Visión del producto |
 | RNF-SEG-001 | Seguridad | Integridad pedido-pago | Imprescindible | Confirmado por el dueño |
 | RNF-SEG-002 | Seguridad | Trazabilidad de acciones | Imprescindible | Visión del producto |
-| RNF-REN-001 | Rendimiento | Tiempo de confirmación de pedido | Importante | Supuesto propio |
-| RNF-USA-001 | Usabilidad | Uso del kiosco sin instrucciones | Importante | Supuesto propio |
+| RNF-REN-001 | Rendimiento | Tiempo de confirmación de pedido | Importante | Confirmado por entrevista |
+| RNF-USA-001 | Usabilidad | Uso del kiosco sin instrucciones | Importante | Confirmado por entrevista |
 
 ### 4.2 Fichas
 
@@ -247,10 +234,10 @@ automatizada — igual que en la Visión del producto.
 |---|---|
 | Atributo de calidad | Rendimiento |
 | Descripción | Un pedido pagado aparece en la pantalla de barra en un tiempo corto tras confirmarse el pago. |
-| Métrica | Menos de 3 segundos entre la confirmación del pago y la aparición del pedido en la pantalla de barra. |
-| Origen | Supuesto propio, pendiente de validar con tiempos reales de operación del local. |
+| Métrica | Menos de 8 segundos entre la confirmación del pago y la aparición del pedido en la pantalla de barra. |
+| Origen | Confirmado por entrevista con la dupla (ver `docs/guion-entrevista.md`, pregunta 9): el barista tolera hoy hasta 5-8 segundos sin notar demora, al recibir pedidos verbales casi al instante. Se ajustó desde el supuesto inicial de 3 segundos. |
 | Prioridad | Importante |
-| Por qué importa | En hora pico, un retraso aquí genera el mismo cuello de botella que el sistema busca eliminar. |
+| Por qué importa | En hora pico, un retraso por encima de este límite genera el mismo cuello de botella que el sistema busca eliminar. |
 | Afecta a | RF-004, RF-006 |
 
 **RNF-USA-001 · Uso del kiosco sin instrucciones**
@@ -258,53 +245,98 @@ automatizada — igual que en la Visión del producto.
 | Campo | Contenido |
 |---|---|
 | Atributo de calidad | Usabilidad |
-| Descripción | Un cliente que nunca ha usado el kiosco puede completar un pedido simple sin ayuda de otra persona. |
-| Métrica | Un cliente de primera vez completa un pedido de un solo producto en menos de 60 segundos, sin intervención de personal del local, en pruebas con al menos 5 usuarios distintos. |
-| Origen | Supuesto propio, pendiente de validar con pruebas de usuario. |
+| Descripción | Un cliente que nunca ha usado el kiosco puede completar un pedido con al menos una personalización sin ayuda de otra persona. |
+| Métrica | Un cliente de primera vez completa un pedido con una personalización (tamaño, tipo de leche o extra) en menos de 90 segundos, sin intervención de personal del local, en pruebas con al menos 5 usuarios distintos. |
+| Origen | Confirmado por entrevista con la dupla (ver `docs/guion-entrevista.md`, pregunta 8): el caso común es un pedido con personalización, no el más simple posible, y el dueño calcula cerca de 90 segundos para ese caso. Se ajustó desde el supuesto inicial de 60 segundos para "un producto simple". |
 | Prioridad | Importante |
 | Por qué importa | Si el kiosco necesita ayuda para usarse, el negocio termina necesitando otra vez a alguien parado ahí — justo lo que el sistema quiere evitar. |
 | Afecta a | RF-001 |
 
+---
+
 ## 5. Casos de uso
 
-*Se trabajan en la semana 7, después de la entrevista. Cada caso de uso
-se relaciona con los requisitos funcionales que realiza.*
+### 5.1 Lista de casos de uso
+
+| ID | Caso de uso | Actor principal | Requisitos funcionales que realiza |
+|---|---|---|---|
+| CU-01 | Ordenar producto desde kiosco | Cliente | RF-001, RF-003 |
+| CU-02 | Ordenar producto desde celular | Cliente | RF-002, RF-003 |
+| CU-03 | Confirmar llegada de pedido anticipado | Cliente | RF-005 |
+| CU-04 | Preparar pedido en barra | Barista | RF-004, RF-006, RF-007 |
+| CU-05 | Administrar catálogo de productos | Dueño/administrador | RF-008 |
+| CU-06 | Autorizar cancelación de pedido | Dueño/administrador | RF-009, RF-010 |
+| CU-07 | Generar corte de caja diario | Dueño/administrador | RF-011 |
+
+El diagrama completo, con la frontera del sistema y las asociaciones entre actores y casos de uso, está en `docs/diagramas/casos-de-uso.drawio` (editable) y `docs/diagramas/casos-de-uso.png` (exportado).
+
+### 5.2 Caso de uso detallado: CU-02 · Ordenar producto desde celular
+
+| Campo | Contenido |
+|---|---|
+| Actor principal | Cliente |
+| Objetivo | Registrar y pagar un pedido desde su celular, en el momento o con anticipación, sin necesidad de un cajero. |
+| Precondición | El catálogo de productos está disponible y actualizado (CU-05 ya se ejecutó al menos una vez). |
+| Postcondición | El pedido queda registrado con su pago confirmado y, si corresponde, marcado como "anticipado" a la espera de confirmación de llegada (CU-03). |
+
+**Escenario principal:**
+
+1. El cliente abre la aplicación desde su celular y consulta el catálogo vigente.
+2. El cliente selecciona uno o más productos y sus modificadores (tamaño, tipo de leche, extras).
+3. El sistema calcula el total del pedido según el catálogo vigente (RF-003).
+4. El cliente elige si el pedido es para ahora o para recoger más tarde (anticipado).
+5. El cliente confirma el método de pago y paga.
+6. El sistema confirma el pago y registra el pedido (RF-002).
+7. Si el pedido es para ahora, el sistema lo envía de inmediato a la pantalla de barra (RF-004, RF-006). Si es anticipado, el pedido queda a la espera de la confirmación de llegada (continúa en CU-03).
+
+**Flujos alternos:**
+
+- **FA-1 — El pago es rechazado (paso 5):** el sistema informa al cliente que el pago no se completó y no registra el pedido. El cliente puede intentar con otro método de pago o cancelar. No se genera ningún registro en la pantalla de barra.
+- **FA-2 — El cliente modifica el pedido antes de pagar (paso 2-3):** el cliente agrega o quita productos después de ver el total. El sistema recalcula el total automáticamente (RF-003) y el escenario principal continúa desde el paso 2.
+- **FA-3 — El catálogo cambió mientras el cliente tenía la pantalla abierta (paso 1-3):** si el dueño actualizó un precio o desactivó un producto (CU-05) después de que el cliente abrió la aplicación, el sistema usa el catálogo vigente al momento de pagar, no el que se mostró al abrir la aplicación, y avisa al cliente si algún producto de su selección ya no está disponible.
 
 ---
 
 ## 6. Trazabilidad
 
-*Esta tabla es la que hace posible el análisis de impacto de la semana
-15. Mantenla actualizada conforme cambien los requisitos.*
-
 | Requisito | Origen | Caso de uso | Elemento del prototipo |
 |---|---|---|---|
-| RF-001 | Entrevista 15 sep | CU-01 Registrar consulta | Pantalla de consulta |
+| RF-001 | Visión del producto, apartado 3 | CU-01 Ordenar producto desde kiosco | Pantalla de catálogo del kiosco |
+| RF-002 | Visión del producto, apartado 3 | CU-02 Ordenar producto desde celular | Pantalla de catálogo (celular) |
+| RF-003 | Derivado de RF-001/RF-002 | CU-01, CU-02 | Pantalla de resumen y total del pedido |
+| RF-004 | Confirmado por el dueño (entrevista) | CU-02, CU-04 | Pantalla de confirmación de pago |
+| RF-005 | Visión del producto, apartado 2 | CU-03 Confirmar llegada de pedido anticipado | Pantalla "Ya llegué" (celular) |
+| RF-006 | Visión del producto, apartado 3 | CU-04 Preparar pedido en barra | Pantalla de barra (cola de pedidos) |
+| RF-007 | Visión del producto, apartado 3 | CU-04 | Pantalla de estado (pedido listo) |
+| RF-008 | Confirmado por el dueño | CU-05 Administrar catálogo de productos | Pantalla de administración de catálogo |
+| RF-009 | Confirmado por el dueño (entrevista) | CU-04 | Pantalla de barra (sin controles de precio) |
+| RF-010 | Confirmado por el dueño (entrevista) | CU-06 Autorizar cancelación de pedido | Pantalla de autorización de cancelación |
+| RF-011 | Visión del producto, apartado 3 | CU-07 Generar corte de caja diario | Pantalla de corte de caja |
+| RNF-REN-001 | Confirmado por entrevista | CU-04 | — (no es una pantalla, es un tiempo de respuesta del sistema) |
+| RNF-USA-001 | Confirmado por entrevista | CU-01, CU-02 | Pantalla de catálogo (kiosco y celular) |
 
 ---
 
 ## 7. Registro de cambios
 
-*Cada modificación posterior a la primera versión se anota aquí. Un
-requisito eliminado se marca como tal, pero su identificador no se
-reutiliza.*
-
 | Fecha | Requisito | Qué cambió | Por qué |
 |---|---|---|---|
-| | | | |
+| 29/09/2026 | RNF-REN-001 | Métrica de "menos de 3 segundos" a "menos de 8 segundos" | La entrevista con la dupla mostró que el barista tolera hoy hasta 5-8 segundos sin notar demora al recibir pedidos verbales |
+| 29/09/2026 | RNF-USA-001 | Métrica de "60 segundos para un pedido simple" a "90 segundos para un pedido con una personalización" | La entrevista reveló que el caso común es un pedido con al menos una personalización, no el más simple posible |
+| 01/10/2026 | — | Se agregaron los apartados 5 (casos de uso) y 6 (trazabilidad) | Resultado del trabajo de la Unidad 2 sobre casos de uso |
 
 ---
 
 ## Antes de entregar
 
-- [ ] Todos los requisitos tienen identificador único y ninguno está repetido
-- [ ] Cada requisito expresa una sola idea
-- [ ] Cada requisito funcional tiene criterio de aceptación comprobable
-- [ ] Cada requisito no funcional tiene una métrica, no solo un adjetivo
-- [ ] El campo Origen distingue lo confirmado por el cliente de lo que sigo suponiendo
-- [ ] Hay al menos un requisito no funcional por cada atributo de calidad que impone mi tipo de sistema
-- [ ] Ningún requisito impone una solución técnica
-- [ ] Todos los requisitos caben dentro del alcance declarado
-- [ ] La tabla de trazabilidad está completa
-- [ ] Mi dupla revisó el documento y su revisión está registrada
-- [ ] Borré los ejemplos y las instrucciones en cursiva
+- [x] Todos los requisitos tienen identificador único y ninguno está repetido
+- [x] Cada requisito expresa una sola idea
+- [x] Cada requisito funcional tiene criterio de aceptación comprobable
+- [x] Cada requisito no funcional tiene una métrica, no solo un adjetivo
+- [x] El campo Origen distingue lo confirmado por el cliente de lo que sigo suponiendo
+- [x] Hay al menos un requisito no funcional por cada atributo de calidad que impone mi tipo de sistema
+- [x] Ningún requisito impone una solución técnica
+- [x] Todos los requisitos caben dentro del alcance declarado
+- [x] La tabla de trazabilidad está completa
+- [x] Mi dupla revisó el documento y su revisión está registrada
+- [x] Borré los ejemplos y las instrucciones en cursiva
