@@ -54,11 +54,11 @@ sequenceDiagram
     participant Cat as Catálogo
     participant Pag as Pagos
     participant Pro as Proveedor de pagos
-    participant Not as Notificador
+    participant Not as Notificador (ObservadorPedido)
 
     Cli->>App: Elige productos y modificadores
     App->>Ped: crearPedido(productos)
-    Ped->>Cat: precios vigentes de los productos
+    Ped->>Cat: preciosVigentes(productos)
     Cat-->>Ped: precios
     Ped-->>App: total del pedido
     Cli->>App: Confirma y paga
@@ -67,14 +67,16 @@ sequenceDiagram
     Pag->>Pro: solicita el cobro
     Pro-->>Pag: cobro confirmado
     Pag-->>Ped: pago confirmado
-    Ped->>Not: el pedido está pagado
+    Ped->>Not: cambioDeEstado(pedido), ahora Pagado
     Not-->>Bar: aparece en la pantalla de barra
-    Bar->>Ped: marca el pedido como listo
-    Ped->>Not: el pedido está listo
+    Bar->>Ped: marcarListo(pedido)
+    Ped->>Not: cambioDeEstado(pedido), ahora Listo
     Not-->>Cli: aparece en la pantalla de estado
 ```
 
 Cada flecha entre módulos es una llamada a la interfaz del módulo dueño, no una lectura de sus tablas (regla del ADR-001). El tiempo entre "cobro confirmado" y "aparece en la pantalla de barra" es el que limita RNF-REN-001: menos de 8 segundos.
+
+Cada mensaje con paréntesis existe como operación en el diagrama de clases (§3): `crearPedido`, `pagar` y `marcarListo` en `ServicioPedidos`, `preciosVigentes` en `Catalogo`, `cobrar` en `ProcesadorPago` y `cambioDeEstado` en `ObservadorPedido`.
 
 ---
 
@@ -84,6 +86,18 @@ Las clases del módulo Pedidos y lo que lo rodea. Se usan tres patrones: una est
 
 ```mermaid
 classDiagram
+    class ServicioPedidos {
+        <<interface>>
+        +crearPedido(productos) Pedido
+        +pagar(pedido) boolean
+        +marcarListo(pedido) void
+    }
+
+    class Catalogo {
+        <<interface>>
+        +preciosVigentes(productos) List~Producto~
+    }
+
     class Pedido {
         -id: string
         -estado: EstadoPedido
@@ -136,11 +150,11 @@ classDiagram
 
     class ProcesadorPago {
         <<interface>>
-        +cobrar(monto) boolean
+        +cobrar(pedido, monto) boolean
     }
 
     class AdaptadorProveedor {
-        +cobrar(monto) boolean
+        +cobrar(pedido, monto) boolean
     }
 
     class AccionPedido {
@@ -149,6 +163,9 @@ classDiagram
         -fechaHora: Date
     }
 
+    ServicioPedidos "1" --> "*" Pedido : administra
+    ServicioPedidos ..> Catalogo : consulta precios
+    Catalogo "1" --> "*" Producto : ofrece
     Pedido "1" --> "*" LineaPedido : contiene
     LineaPedido "*" --> "1" Producto : se basa en
     Pedido "1" --> "1" EstrategiaEnvio : usa
@@ -163,6 +180,10 @@ classDiagram
 ```
 
 `precioUnitario` en la línea guarda el precio del catálogo vigente al momento de la orden, así que un cambio posterior de precio no altera un pedido ya hecho (RF-003). `AccionPedido` es la bitácora que pide RNF-SEG-002 y de donde sale el corte de caja.
+
+`ServicioPedidos` y `Catalogo` son las interfaces de sus módulos, las que pide el ADR-001: sus operaciones son los mensajes del diagrama de secuencia (§2). `cobrar` recibe el pedido además del monto para que cada pago quede ligado a su pedido (`PAGO.pedido_id`, §5). Sin eso no se puede cruzar `PEDIDO` contra `PAGO`, que es la auditoría de RNF-SEG-001.
+
+**Lo que le faltaba a la primera versión, y salió al cruzarla con la secuencia.** El diagrama de clases no tenía dónde vivieran `crearPedido` ni la consulta de precios a Catálogo, y `cobrar(monto)` solo recibía el importe: el cobro no sabía de qué pedido era. Las tres cosas aparecieron al buscar cada mensaje de §2 como operación de esta clase, y se agregaron aquí (`ServicioPedidos`, `Catalogo` y `cobrar(pedido, monto)`).
 
 ---
 
@@ -253,3 +274,5 @@ erDiagram
 ```
 
 Cada tabla tiene un solo módulo dueño, y es el único que escribe en ella: Catálogo (`PRODUCTO`), Pedidos (`PEDIDO`, `LINEA_PEDIDO`), Pagos (`PAGO`) y Caja (`ACCION_PEDIDO`, `CORTE_CAJA`). Los demás módulos piden lo que necesitan por la interfaz del dueño, como dice el ADR-001. `PAGO` es opcional respecto de `PEDIDO` porque un pedido nace antes de cobrarse, y la auditoría de RNF-SEG-001 se hace cruzando `PEDIDO` con `PAGO`.
+
+**Regla de `PAGO.monto`:** es solo el importe del pedido. Nada que no sea del pedido se suma ahí, para que la diferencia de `CORTE_CAJA` dé cero en un día normal (ver [`doc/cambios/SC-01-analisis-impacto.md`](../cambios/SC-01-analisis-impacto.md), apartado 7).
